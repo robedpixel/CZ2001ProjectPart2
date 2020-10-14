@@ -6,3 +6,6 @@
 !ActivateCondaEnv.bat
 !SetupCondaEnv.bat
 !/src/
+__pycache__/
+*.py[cod]
+*$py.class
