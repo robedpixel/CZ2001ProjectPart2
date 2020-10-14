@@ -1,0 +1,7 @@
+/*
+!.gitignore
+!README.txt
+!environment.yml
+!OpenCondaEnv.bat
+!SetupCondaEnv.bat
+!/src/
