@@ -2,6 +2,7 @@
 !.gitignore
 !README.txt
 !environment.yml
-!OpenCondaEnv.bat
+!OpenMiniConda.bat
+!ActivateCondaEnv.bat
 !SetupCondaEnv.bat
 !/src/
