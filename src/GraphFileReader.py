@@ -12,8 +12,9 @@ class GraphFileReader:
         Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
         self.filename = askopenfilename()  # show an "Open" dialog box and return the path to the selected file
 
-    def read_graph(self):
+    def read_graph(self) -> snap.PUNGraph:
         self.pungraph = snap.LoadEdgeList(snap.PUNGraph, self.filename, 0, 1)
+        return self.pungraph
 
     def display_status(self):
         print(type(self.pungraph))
