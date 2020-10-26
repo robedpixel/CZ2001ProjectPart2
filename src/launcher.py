@@ -1,6 +1,6 @@
 from HospitalLocationReader import HospitalLocationReader
 from GraphFileReader import GraphFileReader
-from BFS import snap_bfs
+from BFS import snap_bfs_top_k_shortest
 
 print("select hospital file")
 hospital = HospitalLocationReader()
@@ -11,4 +11,6 @@ reader = GraphFileReader()
 reader.read_file()
 reader.read_graph()
 reader.display_status()
-snap_bfs(1, reader.pungraph, hospital.hospitallocationlist)
+pathlist = snap_bfs_top_k_shortest(1, reader.pungraph, hospital.hospitallocationlist,2)
+for x in pathlist:
+    print(x)
