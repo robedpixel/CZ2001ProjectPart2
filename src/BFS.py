@@ -72,6 +72,26 @@ def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_l
         hospital_locations_list.remove(hospitalnode)
     return list_of_paths
 
+
+def complete_snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list,
+                                     paths_to_find: int) -> list:
+    outputlist = list()
+    for NI in graph.Nodes():
+        paths = snap_bfs_top_k_shortest(NI.GetId(), graph, hospital_locations_list, paths_to_find)
+        outputlist.extend(paths)
+    return outputlist
+
+
+def output_to_file(bfs_path_list: list):
+    file1 = open("output.txt", "a")
+    for path in bfs_path_list:
+        file1.write("From node " + str(path[0]) + " to hospital at node " + str(path[-1]) + "\n")
+        file1.write("Distance: " + str(len(path)) + "\n")
+        file1.write("Path: " + str(path) + "\n")
+        file1.write("\n")
+    file1.close()
+
+
 # DEPRECATED basic breadth first search on a snap.py graph
 def snap_bfs(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list) -> int:
     # Create array of same size as number of nodes of graph
