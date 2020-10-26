@@ -16,32 +16,34 @@ check = [False, False, True, False, False, False];
 nodenum = [];
 
 
-def snap_bfs(visited, graph: snap.PUNGraph, node: int, hospital_locations_list: list):
+def snap_bfs(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list):
     # Create array of same size as number of nodes of graph
     numnodes = graph.GetNodes()
     hospitalarray = np.zeros((numnodes, 1), dtype=bool)
+    visitedarray = np.zeros((numnodes, 1), dtype=bool)
     # load array with values in hospital list
     for location in hospital_locations_list:
         hospitalarray[location] = True
 
-
-    visited.append(node)
-    queue.append(node)
-    j = 0;
-    i = 0;
+    visitedarray[starting_node] = True
+    queue.append(starting_node)
+    i = 0
     while queue:
         s = queue.pop(0)
-        print(s, end=" ")
-        if (hospitalarray[i] == True):
-            print("Hospital found at node: ", i + 1)
+        print("Current node: " + str(s))
+        if hospitalarray[s]:
+            print("Hospital found at node: ", s)
+	    return s
             break
         else:
             i += 1;
-            print(i);
-            for neighbour in graph[s]:
-                if neighbour not in visited:
-                    visited.append(neighbour)
-                    queue.append(neighbour)
+            current_node = graph.GetNI(int(s))
+            for Id in current_node.GetOutEdges():
+                if not visitedarray[Id]:
+                    visitedarray[Id] = True
+                    queue.append(Id)
+                    print("edge (%d %d) not visited yet" % (current_node.GetId(), Id))
+
 
 
 def bfs(visited, graph, node):
@@ -70,4 +72,4 @@ def bfs(visited, graph, node):
 
 
 # Driver Code
-bfs(visited, graph, 'A')
+#bfs(visited, graph, 'A')

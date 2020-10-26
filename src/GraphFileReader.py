@@ -10,7 +10,7 @@ class GraphFileReader:
 
     def read_file(self):
         Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
-        self.filename = askopenfilename()  # show an "Open" dialog box and return the path to the selected file
+        self.filename = askopenfilename(title='Select snap.py graph File')  # show an "Open" dialog box and return the path to the selected file
 
     def read_graph(self) -> snap.PUNGraph:
         self.pungraph = snap.LoadEdgeList(snap.PUNGraph, self.filename, 0, 1)
@@ -19,3 +19,6 @@ class GraphFileReader:
     def display_status(self):
         print(type(self.pungraph))
         print("number of nodes:" + str(self.pungraph.GetNodes()))
+        # Snap.py graph uses numbers to identify nodes
+        # for NI in self.pungraph.Nodes():
+        #    print("node: %d, out-degree %d, in-degree %d" % (NI.GetId(), NI.GetOutDeg(), NI.GetInDeg()))

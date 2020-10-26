@@ -9,7 +9,7 @@ class HospitalLocationReader:
 
     def read_file(self):
         Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
-        self.filename = askopenfilename()  # show an "Open" dialog box and return the path to the selected file
+        self.filename = askopenfilename(title='Select Hospital Text File')  # show an "Open" dialog box and return the path to the selected file
 
     def get_hospital_locations(self) -> list:
         print("reading: " + self.filename)
@@ -36,8 +36,8 @@ class HospitalLocationReader:
                 #load hospital location into list
                 self.hospitallocationlist.append(int(line.strip()))
 
-            return self.hospitallocationlist
             for number in self.hospitallocationlist:
                 print(number)
             # close file gracefully
             f.close()
+            return self.hospitallocationlist
