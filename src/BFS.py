@@ -60,6 +60,7 @@ def snap_bfs_shortest_path(starting_node: int, graph: snap.PUNGraph, hospital_lo
 def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list,
                             paths_to_find: int) -> list:
     list_of_paths = list()
+    p_hospital_locations_list = hospital_locations_list.copy()
     if paths_to_find < 0:
         print("can't find zero or negative paths!")
         return
@@ -67,13 +68,13 @@ def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_l
         print("can't find more paths than there are hospitals!")
         return
     for x in range(paths_to_find):
-        hospitalnode, path = snap_bfs_shortest_path(starting_node, graph, hospital_locations_list)
+        hospitalnode, path = snap_bfs_shortest_path(starting_node, graph, p_hospital_locations_list)
         list_of_paths.append(path)
-        hospital_locations_list.remove(hospitalnode)
+        p_hospital_locations_list.remove(hospitalnode)
     return list_of_paths
 
 
-def complete_snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list,
+def complete_snap_bfs_top_k_shortest(graph: snap.PUNGraph, hospital_locations_list: list,
                                      paths_to_find: int) -> list:
     outputlist = list()
     for NI in graph.Nodes():
