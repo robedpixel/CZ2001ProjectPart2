@@ -3,12 +3,20 @@ from tkinter.filedialog import askopenfilename
 import snap
 
 class GraphFileReader:
+    """
+    A Class to read a file containing a snap.py graph and load it into a PUNGraph object which can then
+    be accessed
+
+    """
     def __init__(self):
         self.filename = ""
         self.Fin = ""
         self.pungraph = ""
 
     def read_file(self):
+        """
+        Displays a gui file prompt to read a snap.py file
+        """
         Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
         self.filename = askopenfilename(title='Select snap.py graph File')  # show an "Open" dialog box and return the path to the selected file
 

@@ -3,11 +3,19 @@ from tkinter.filedialog import askopenfilename
 
 
 class HospitalLocationReader:
+    """
+    A Class to read a file containing the assignment's defined format for storing hospital nodes and then store
+    the information in a list within a class
+
+    """
     def __init__(self):
         self.filename = ""
         self.hospitallocationlist = list()
 
     def read_file(self):
+        """
+        Displays a gui file prompt to read a file containing hospital node locations
+        """
         Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
         self.filename = askopenfilename(title='Select Hospital Text File')  # show an "Open" dialog box and return the path to the selected file
 

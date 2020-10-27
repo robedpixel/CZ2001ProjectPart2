@@ -17,10 +17,12 @@ check = [False, False, True, False, False, False];
 nodenum = [];
 
 
-# this function does breadth first search on a snap.py graph, it returns the node at which it has found a hospital
-# and a list of the shortest path
 def snap_bfs_shortest_path(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list) -> typing.Tuple[
     int, list]:
+    """
+    This function does breadth first search on a snap.py graph, it returns the node at which it has found a hospital
+    and a list of the shortest path
+    """
     # Create array of same size as number of nodes of graph
     numnodes = graph.GetNodes()
     hospitalarray = np.zeros((numnodes, 1), dtype=bool)
@@ -56,9 +58,12 @@ def snap_bfs_shortest_path(starting_node: int, graph: snap.PUNGraph, hospital_lo
                 print("edge (%d %d) not visited yet" % (current_node.GetId(), Id))
 
 
-# This function returns a list of paths from 1 node to the nearest hospital
 def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list,
-                            paths_to_find: int) -> list:
+                            paths_to_find: int, bool_save_to_file: bool) -> list:
+    """
+    This function returns a list of paths from 1 node to the nearest k hospitals,
+    uses snap_bfs_shortest_path function to check the nearest path to each hospital
+    """
     list_of_paths = list()
     p_hospital_locations_list = hospital_locations_list.copy()
     if paths_to_find < 0:
@@ -71,19 +76,29 @@ def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_l
         hospitalnode, path = snap_bfs_shortest_path(starting_node, graph, p_hospital_locations_list)
         list_of_paths.append(path)
         p_hospital_locations_list.remove(hospitalnode)
+    if bool_save_to_file:
+        output_to_file(list_of_paths)
     return list_of_paths
 
 
 def complete_snap_bfs_top_k_shortest(graph: snap.PUNGraph, hospital_locations_list: list,
-                                     paths_to_find: int) -> list:
+                                     paths_to_find: int, bool_save_to_file: bool) -> list:
+    """
+    This function returns a list of paths from every node to the nearest k hospitals,
+    uses snap_bfs_shortest_path function to check the nearest path to each hospital
+    """
     outputlist = list()
     for NI in graph.Nodes():
-        paths = snap_bfs_top_k_shortest(NI.GetId(), graph, hospital_locations_list, paths_to_find)
+        paths = snap_bfs_top_k_shortest(NI.GetId(), graph, hospital_locations_list, paths_to_find, bool_save_to_file)
         outputlist.extend(paths)
     return outputlist
 
 
 def output_to_file(bfs_path_list: list):
+    """
+    This function saves a list returned by any of the breadth-first-search functions
+    into a file
+    """
     file1 = open("output.txt", "a")
     for path in bfs_path_list:
         file1.write("From node " + str(path[0]) + " to hospital at node " + str(path[-1]) + "\n")
