@@ -56,6 +56,7 @@ def snap_bfs_shortest_path(starting_node: int, graph: snap.PUNGraph, hospital_lo
                 new_path.append(Id)
                 queue.append(new_path)
                 print("edge (%d %d) not visited yet" % (current_node.GetId(), Id))
+    return -1, list()
 
 
 def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list,
@@ -74,8 +75,9 @@ def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_l
         return
     for x in range(paths_to_find):
         hospitalnode, path = snap_bfs_shortest_path(starting_node, graph, p_hospital_locations_list)
-        list_of_paths.append(path)
-        p_hospital_locations_list.remove(hospitalnode)
+        if path:
+            list_of_paths.append(path)
+            p_hospital_locations_list.remove(hospitalnode)
     if bool_save_to_file:
         output_to_file(list_of_paths)
     return list_of_paths
