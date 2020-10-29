@@ -6,3 +6,4 @@ BUILD INSTRUCTIONS:
 USING THE PROJECT:
 1.run ActivateCondaEnv batch file to open miniconda command prompt
 2.run ActivateCondaEnv batch file inside the command prompt to activate the project's anaconda environment
+3.run launcher.py with python inside the anaconda environment to run the console
