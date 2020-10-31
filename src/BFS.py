@@ -87,7 +87,7 @@ def complete_snap_bfs_top_k_shortest(graph: snap.PUNGraph, hospital_locations_li
                                      paths_to_find: int, bool_save_to_file: bool) -> list:
     """
     This function returns a list of paths from every node to the nearest k hospitals,
-    uses snap_bfs_shortest_path function to check the nearest path to each hospital
+    uses snap_bfs_top_k_shortest function to check the nearest path to each hospital for each node
     """
     outputlist = list()
     for NI in graph.Nodes():
