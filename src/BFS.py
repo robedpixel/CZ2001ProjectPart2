@@ -104,7 +104,7 @@ def output_to_file(bfs_path_list: list):
     file1 = open("output.txt", "a")
     for path in bfs_path_list:
         file1.write("From node " + str(path[0]) + " to hospital at node " + str(path[-1]) + "\n")
-        file1.write("Distance: " + str(len(path)) + "\n")
+        file1.write("Distance: " + str(len(path)-1) + "\n")
         file1.write("Path: " + str(path) + "\n")
         file1.write("\n")
     file1.close()
