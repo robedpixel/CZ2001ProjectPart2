@@ -1,12 +1,15 @@
 import snap
+from HospitalLocationReader import HospitalLocationReader
+from GraphFileReader import GraphFileReader
 from BFS import complete_snap_multi_bfs_shortest_path_constant, snap_bfs_shortest_path, output_to_file, complete_snap_bfs_top_k_shortest
 from RandomGraphGenerator import RandomGraphGenerator
 from RandomHospitalLocationGen import gen_ran_hospital_locations
 import time
+import numpy as np
 
 hospitallist = list()
-num_nodes = 200
-num_edges = 400
+num_nodes = 400
+num_edges = 1200
 num_hospitals_to_search = 8
 num_hospitals = 16
 graphobject = RandomGraphGenerator(num_nodes, num_edges)

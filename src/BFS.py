@@ -16,9 +16,16 @@ queue = []  # Initialize a queue
 check = [False, False, True, False, False, False];
 nodenum = [];
 
-def complete_snap_multi_bfs_shortest_path_constant(graph: snap.PUNGraph, hospital_locations_list: list) -> list:
+def complete_snap_multi_bfs_shortest_path_constant(graph: snap.PUNGraph, hospital_locations_list: list, is_actual_road_network : bool) -> list:
     numnodes = graph.GetNodes()
-    visitedarray = np.zeros((numnodes, 1), dtype=bool)
+
+    # This code is needed because not all nodes are sequential for the actual road network graphs
+    if is_actual_road_network:
+        for NI in graph.Nodes():
+            if NI.GetId() > numnodes:
+                numnodes = NI.GetId()
+
+    visitedarray = np.zeros((numnodes+1, 1), dtype=bool)
     output = list()
     # maintain a queue of paths
     queue = list()
