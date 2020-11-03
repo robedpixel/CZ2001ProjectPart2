@@ -21,7 +21,7 @@ print("Which part of the project do you wish to test? a/b = 1 , c/d = 2")
 user_input = int(input())
 if user_input == 1:
     start_time = time.time()
-    pathlist = complete_snap_multi_bfs_shortest_path_constant(reader.pungraph, hospital.hospitallocationlist)
+    pathlist = complete_snap_multi_bfs_shortest_path_constant(reader.pungraph, hospital.hospitallocationlist, True)
     end_time = time.time()
     output_to_file(pathlist)
 elif user_input == 2:
