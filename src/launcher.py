@@ -50,14 +50,6 @@ elif user_input == 2:
 else:
     print("error input")
 
-# Uncomment the type of search you want to do
-# pathlist = snap_bfs_top_k_shortest(1, reader.pungraph, hospital.hospitallocationlist, num_hospitals_input, True)
-# pathlist = snap_bfs_top_k_shortest(2, reader.pungraph, hospital.hospitallocationlist, num_hospitals_input, True)
-# pathlist = complete_snap_bfs_top_k_shortest(reader.pungraph, hospital.hospitallocationlist, num_hospitals_input)
-
-# uncomment to output results to a file
-# output_to_file(pathlist)
-
 for x in pathlist:
     print(x)
 print("---time taken: %s seconds ---" % (end_time - start_time))

@@ -5,7 +5,6 @@ from BFS import complete_snap_multi_bfs_shortest_path_constant, snap_bfs_shortes
 from RandomGraphGenerator import RandomGraphGenerator
 from RandomHospitalLocationGen import gen_ran_hospital_locations
 import time
-import numpy as np
 
 hospitallist = list()
 num_nodes = 100

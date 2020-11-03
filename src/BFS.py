@@ -2,20 +2,6 @@ import snap
 import numpy as np
 import typing
 
-graph = {
-    'A': ['B', True],
-    'B': ['D', 'E'],
-    True: ['F'],
-    'D': [],
-    'E': ['F'],
-    'F': []
-}
-
-visited = []  # List to keep track of visited nodes.
-queue = []  # Initialize a queue
-check = [False, False, True, False, False, False];
-nodenum = [];
-
 def complete_snap_multi_bfs_shortest_path_constant(graph: snap.PUNGraph, hospital_locations_list: list, is_actual_road_network : bool) -> list:
     numnodes = graph.GetNodes()
 
