@@ -16,8 +16,7 @@ queue = []  # Initialize a queue
 check = [False, False, True, False, False, False];
 nodenum = [];
 
-def snap_bfs_shortest_path_constant(graph: snap.PUNGraph, hospital_locations_list: list, num_hospitals_to_search: int) -> typing.Tuple[
-    int, list]:
+def snap_bfs_shortest_path_constant(graph: snap.PUNGraph, hospital_locations_list: list) -> list:
     numnodes = graph.GetNodes()
     visitedarray = np.zeros((numnodes, 1), dtype=bool)
     output = list()
