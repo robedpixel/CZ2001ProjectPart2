@@ -23,7 +23,7 @@ if user_input == 1:
     start_time = time.time()
     pathlist = complete_snap_multi_bfs_shortest_path_constant(reader.pungraph, hospital.hospitallocationlist, True)
     end_time = time.time()
-    output_to_file(pathlist)
+    output_to_file(pathlist, True)
 elif user_input == 2:
     print("There are " + str(len(hospital.hospitallocationlist)) + " hospitals")
     print("How many hospitals do you want to search a path for?:")

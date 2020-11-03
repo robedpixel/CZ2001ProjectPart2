@@ -46,8 +46,6 @@ def complete_snap_multi_bfs_shortest_path_constant(graph: snap.PUNGraph, hospita
         current_node = graph.GetNI(int(node))
         for Id in current_node.GetOutEdges():
             if not visitedarray[Id]:
-                # if not visitedarray[Id]:
-                # visitedarray[Id] = True
                 visitedarray[Id] = True
                 new_path = list(path)
                 new_path.append(Id)
@@ -118,7 +116,7 @@ def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_l
             list_of_paths.append(path)
             p_hospital_locations_list.remove(hospitalnode)
     if bool_save_to_file:
-        output_to_file(list_of_paths)
+        output_to_file(list_of_paths, False)
     return list_of_paths
 
 
@@ -134,17 +132,24 @@ def complete_snap_bfs_top_k_shortest(graph: snap.PUNGraph, hospital_locations_li
         outputlist.extend(paths)
     return outputlist
 
-def output_to_file(bfs_path_list: list):
+def output_to_file(bfs_path_list: list, is_list_reversed: bool):
     """
     This function saves a list returned by any of the breadth-first-search functions
     into a file
     """
     file1 = open("output.txt", "a")
-    for path in bfs_path_list:
-        file1.write("From node " + str(path[-1]) + " to hospital at node " + str(path[0]) + "\n")
-        file1.write("Distance: " + str(len(path)-1) + "\n")
-        path.reverse()
-        file1.write("Path: " + str(path) + "\n")
-        file1.write("\n")
+    if is_list_reversed:
+        for path in bfs_path_list:
+            file1.write("From node " + str(path[-1]) + " to hospital at node " + str(path[0]) + "\n")
+            file1.write("Distance: " + str(len(path)-1) + "\n")
+            path.reverse()
+            file1.write("Path: " + str(path) + "\n")
+            file1.write("\n")
+    else:
+        for path in bfs_path_list:
+            file1.write("From node " + str(path[0]) + " to hospital at node " + str(path[-1]) + "\n")
+            file1.write("Distance: " + str(len(path)-1) + "\n")
+            file1.write("Path: " + str(path) + "\n")
+            file1.write("\n")
     file1.close()
 

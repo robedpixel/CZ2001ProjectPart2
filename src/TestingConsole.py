@@ -8,8 +8,8 @@ import time
 import numpy as np
 
 hospitallist = list()
-num_nodes = 400
-num_edges = 1200
+num_nodes = 100
+num_edges = 100
 num_hospitals_to_search = 8
 num_hospitals = 16
 graphobject = RandomGraphGenerator(num_nodes, num_edges)
@@ -17,7 +17,8 @@ randomgraph = graphobject.retrieve_random_graph()
 hospitallist = gen_ran_hospital_locations(num_nodes, num_hospitals)
 start_time = time.time()
 pathlist = complete_snap_multi_bfs_shortest_path_constant(randomgraph, hospitallist, False)
-#pathlist = complete_snap_bfs_top_k_shortest(randomgraph, hospitallist, num_hospitals_to_search, False)
+output_to_file(pathlist, True)
+#pathlist = complete_snap_bfs_top_k_shortest(randomgraph, hospitallist, num_hospitals_to_search, True)
 end_time = time.time()
 for i in pathlist:
     print(i)
