@@ -32,7 +32,7 @@ elif user_input == 2:
     starting_range = int(input())
     if starting_range==0:
         start_time = time.time()
-        pathlist = complete_snap_bfs_top_k_shortest(reader.pungraph, hospital.hospitallocationlist, num_hospitals_input, True)
+        pathlist = complete_snap_bfs_top_k_shortest(reader.pungraph, hospital.hospitallocationlist, num_hospitals_input, True, True)
         end_time = time.time()
     elif starting_range>0:
         print("Starting node = " + str(starting_range))
@@ -40,8 +40,8 @@ elif user_input == 2:
         ending_range = int(input())
         if ending_range>=starting_range:
             start_time = time.time()
-            for x in range(starting_range,ending_range):
-                pathlist = snap_bfs_top_k_shortest(x, reader.pungraph, hospital.hospitallocationlist, num_hospitals_input, True)
+            for x in range(starting_range,ending_range+1):
+                pathlist = snap_bfs_top_k_shortest(x, reader.pungraph, hospital.hospitallocationlist, num_hospitals_input, True, True)
             end_time = time.time()
         else:
             print("error input")

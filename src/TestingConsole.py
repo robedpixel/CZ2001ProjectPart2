@@ -17,7 +17,7 @@ hospitallist = gen_ran_hospital_locations(num_nodes, num_hospitals)
 start_time = time.time()
 pathlist = complete_snap_multi_bfs_shortest_path_constant(randomgraph, hospitallist, False)
 output_to_file(pathlist, True)
-#pathlist = complete_snap_bfs_top_k_shortest(randomgraph, hospitallist, num_hospitals_to_search, True)
+#pathlist = complete_snap_bfs_top_k_shortest(randomgraph, hospitallist, num_hospitals_to_search, True, False)
 end_time = time.time()
 for i in pathlist:
     print(i)

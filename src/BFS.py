@@ -2,7 +2,9 @@ import snap
 import numpy as np
 import typing
 
-def complete_snap_multi_bfs_shortest_path_constant(graph: snap.PUNGraph, hospital_locations_list: list, is_actual_road_network : bool) -> list:
+
+def complete_snap_multi_bfs_shortest_path_constant(graph: snap.PUNGraph, hospital_locations_list: list,
+                                                   is_actual_road_network: bool) -> list:
     numnodes = graph.GetNodes()
 
     # This code is needed because not all nodes are sequential for the actual road network graphs
@@ -11,7 +13,7 @@ def complete_snap_multi_bfs_shortest_path_constant(graph: snap.PUNGraph, hospita
             if NI.GetId() > numnodes:
                 numnodes = NI.GetId()
 
-    visitedarray = np.zeros((numnodes+1, 1), dtype=bool)
+    visitedarray = np.zeros((numnodes + 1, 1), dtype=bool)
     output = list()
     # maintain a queue of paths
     queue = list()
@@ -40,7 +42,9 @@ def complete_snap_multi_bfs_shortest_path_constant(graph: snap.PUNGraph, hospita
                 print("edge (%d %d) not visited yet" % (current_node.GetId(), Id))
     return output
 
-def snap_bfs_shortest_path(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list) -> typing.Tuple[
+
+def snap_bfs_shortest_path(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list,
+                           is_actual_road_network: bool) -> typing.Tuple[
     int, list]:
     """
     This function does breadth first search on a snap.py graph, it returns the node at which it has found a hospital
@@ -48,8 +52,16 @@ def snap_bfs_shortest_path(starting_node: int, graph: snap.PUNGraph, hospital_lo
     """
     # Create array of same size as number of nodes of graph
     numnodes = graph.GetNodes()
-    hospitalarray = np.zeros((numnodes, 1), dtype=bool)
-    visitedarray = np.zeros((numnodes, 1), dtype=bool)
+
+    # This code is needed because not all nodes are sequential for the actual road network graphs
+    if is_actual_road_network:
+        for NI in graph.Nodes():
+            if NI.GetId() > numnodes:
+                numnodes = NI.GetId()
+
+    hospitalarray = np.zeros((numnodes + 1, 1), dtype=bool)
+    visitedarray = np.zeros((numnodes + 1, 1), dtype=bool)
+
     # load array with values in hospital list
     for location in hospital_locations_list:
         hospitalarray[location] = True
@@ -83,7 +95,7 @@ def snap_bfs_shortest_path(starting_node: int, graph: snap.PUNGraph, hospital_lo
 
 
 def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_locations_list: list,
-                            paths_to_find: int, bool_save_to_file: bool) -> list:
+                            paths_to_find: int, bool_save_to_file: bool, is_actual_road_network: bool) -> list:
     """
     This function returns a list of paths from 1 node to the nearest k hospitals,
     uses snap_bfs_shortest_path function to check the nearest path to each hospital
@@ -97,7 +109,8 @@ def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_l
         print("can't find more paths than there are hospitals!")
         return
     for x in range(paths_to_find):
-        hospitalnode, path = snap_bfs_shortest_path(starting_node, graph, p_hospital_locations_list)
+        hospitalnode, path = snap_bfs_shortest_path(starting_node, graph, p_hospital_locations_list,
+                                                    is_actual_road_network)
         if path:
             list_of_paths.append(path)
             p_hospital_locations_list.remove(hospitalnode)
@@ -107,16 +120,18 @@ def snap_bfs_top_k_shortest(starting_node: int, graph: snap.PUNGraph, hospital_l
 
 
 def complete_snap_bfs_top_k_shortest(graph: snap.PUNGraph, hospital_locations_list: list,
-                                     paths_to_find: int, bool_save_to_file: bool) -> list:
+                                     paths_to_find: int, bool_save_to_file: bool, is_actual_road_network: bool) -> list:
     """
     This function returns a list of paths from every node to the nearest k hospitals,
     uses snap_bfs_top_k_shortest function to check the nearest path to each hospital for each node
     """
     outputlist = list()
     for NI in graph.Nodes():
-        paths = snap_bfs_top_k_shortest(NI.GetId(), graph, hospital_locations_list, paths_to_find, bool_save_to_file)
+        paths = snap_bfs_top_k_shortest(NI.GetId(), graph, hospital_locations_list, paths_to_find, bool_save_to_file,
+                                        is_actual_road_network)
         outputlist.extend(paths)
     return outputlist
+
 
 def output_to_file(bfs_path_list: list, is_list_reversed: bool):
     """
@@ -127,15 +142,14 @@ def output_to_file(bfs_path_list: list, is_list_reversed: bool):
     if is_list_reversed:
         for path in bfs_path_list:
             file1.write("From node " + str(path[-1]) + " to hospital at node " + str(path[0]) + "\n")
-            file1.write("Distance: " + str(len(path)-1) + "\n")
+            file1.write("Distance: " + str(len(path) - 1) + "\n")
             path.reverse()
             file1.write("Path: " + str(path) + "\n")
             file1.write("\n")
     else:
         for path in bfs_path_list:
             file1.write("From node " + str(path[0]) + " to hospital at node " + str(path[-1]) + "\n")
-            file1.write("Distance: " + str(len(path)-1) + "\n")
+            file1.write("Distance: " + str(len(path) - 1) + "\n")
             file1.write("Path: " + str(path) + "\n")
             file1.write("\n")
     file1.close()
-
